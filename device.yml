@@ -1,0 +1,59 @@
+---
+name: STSPIN220 
+desc: Low voltage stepper motor driver
+category: Device/MotorDriver
+datasheet: https://www.st.com/resource/en/datasheet/stspin220.pdf
+mfg: STMicroelectronics
+mfg_pn: STSPIN220
+digikey_pn: 497-16602-1-ND
+prefix: spn
+bus: GPIO
+
+
+###########################################################################################################
+#                                   Registers                                                             #
+###########################################################################################################
+
+#registers:
+
+
+
+###########################################################################################################
+#                                   Fields                                                                #
+###########################################################################################################
+
+#fields:
+
+
+###########################################################################################################
+#                                   Configurations                                                        #
+###########################################################################################################
+
+#configs:
+
+###########################################################################################################
+#                                   HW  (experimental)                                                    #
+###########################################################################################################
+
+package: QFN16
+
+pins:
+  - PAD:        {pad: 0, type: gnd, desc: Ground pad}
+  - DIR\MODE4:  {pad: 1, type: digital, dir: i , desc: Direction input. Step mode selection input 4.}
+  - STCK\MODE3: {pad: 2, type: digitial, dir: i , desc: Step clock input. Step mode selection input 3.}
+  - OUTA1:      {pad: 3, type: Power, dir: o, desc: Power bridge output side A1.}
+  - SENSEA:     {pad: 4, type: Power, dir: o, desc: Sense output of the bridge A.}
+  - OUTA2:      {pad: 5, type: Power, dir: o, desc: Power bridge output side A2.}
+  - VS:         {pad: 6, type: Supply, desc: Device supply voltage.}
+  - GND:        {pad: 7, type: Ground, desc: Device ground.}
+  - OUTB2:      {pad: 8, type: Power, dir: o, desc: Power bridge output side B2.}
+  - SENSEB:     {pad: 9, type: Power, dir: o, desc: Sense output of the bridge B.}
+  - OUTB1:      {pad: 10, type: Power, dir: o, desc: Power bridge output side B1.}
+  - REF:        {pad: 11, type: analog, dir: i , desc: Reference voltage for the PWM current control circuitry.}
+  - TOFF:       {pad: 12, type: analog, dir: i , desc: Internal oscillator frequency adjustment.}
+  - EN:         {pad: 13, type: digital, dir: io, desc: This is the power stage enable (when low- the power stage is turned off) and is forced low through the integrated open-drain MOSFET when a failure occurs.}
+  - STBY:       {pad: 14, type: digital, dir: i, desc: When forced low- the device is forced into low consumption mode.}
+  - MODE2:      {pad: 15, type: digital, dir: i, desc: Step mode selection input 2.}
+  - MODE1:      {pad: 16, type: digital, dir: i, desc: Step mode selection input 1.}
+
+
