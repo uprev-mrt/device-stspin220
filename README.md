@@ -11,6 +11,7 @@
 <h2>Description: </h2>
 <p>Low voltage stepper motor driver</p>
 
+
 <!--*user-block-description-start*-->
 
 <p >
@@ -60,6 +61,26 @@
         than 80 nA
       </li>
     </ul>
+
+<br>
+
+Example Code:
+```c
+  stspin220_t stspn;
+  stspn_hw_cfg_t hw;
+  hw.mDir = gpio_pa0;
+  hw.mStck = gpio_pa1;
+  hw.mMode1 = gpio_pa2;
+  hw.mMode2 = gpio_pa2;
+
+  stspn_init(&stspn, &hw, 56);                    /* Init with 56 steps per mm*/
+  stspn_set_mode(&stspn, SPN_STEP_1_4);           /* use 1/4 stepping */ 
+  stspn_move_mm(&stpsn, SPN_DIR_FORWARD, 32.5);   /* Move by mm */
+  
+  stspn_move(&stpsn, SPN_DIR_FORWARD, 150 );      /* Move by steps */
+
+
+```
 
 <!--*user-block-description-end*-->
 <br/>
