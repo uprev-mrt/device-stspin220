@@ -38,7 +38,7 @@ typedef struct{
     mrt_gpio_t mStandby;                /* Standby/Reset  */
     mrt_gpio_t mMode1;                  /* Standby/Reset  */
     mrt_gpio_t mMode2;                  /* Standby/Reset  */
-    mrt_gpio_t mFault;                  /* Fault pin input */
+    mrt_gpio_t mFault;                  /* Fault pin input/enable output */
 }stspn_hw_cfg_t;
 
 
@@ -105,6 +105,16 @@ int stspn_move_mm(stspin220_t* dev,  double mm);
  * @return number of steps moved 
  */
 int stspn_goto_mm(stspin220_t* dev,  double mm);
+
+/**
+ * @brief Move motor to position by mm.  Wake the device, set the step mode, and enable.
+ *        When movment is finished, disable the device and set to standby.
+ * @param dev ptr to stspn device
+ * @param mm number of mm to move +/- for direction
+ * @return number of steps moved
+ */
+int stspn_wake_goto_mm_sleep(stspin220_t* dev,  double mm);
+
 
 
 #ifdef __cplusplus
