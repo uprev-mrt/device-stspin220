@@ -7,6 +7,7 @@
   * @brief Device driver for STSPIN220 device
   *
   */
+#pragma once
 
 #ifdef __cplusplus
 extern "C"
@@ -38,7 +39,7 @@ typedef struct{
     mrt_gpio_t mStandby;                /* Standby/Reset  */
     mrt_gpio_t mMode1;                  /* Standby/Reset  */
     mrt_gpio_t mMode2;                  /* Standby/Reset  */
-    mrt_gpio_t mFault;                  /* Fault pin input */
+    mrt_gpio_t mFault;                  /* Fault pin input/enable output */
 }stspn_hw_cfg_t;
 
 
@@ -75,6 +76,17 @@ mrt_status_t stspn_init(stspin220_t* dev, stspn_hw_cfg_t* hw );
 mrt_status_t stspn_set_params(stspin220_t* dev, uint32_t currPos, uint32_t maxPos, uint32_t stepsPerMm);
 
 /**
+ * @brief set mechanical parameters in mm
+ *
+ * @param dev ptr to device
+ * @param currPos current position in mm
+ * @param maxPos max position in microsteps/steps
+ * @param stepsPerMm Full steps per mm
+ * @return mrt_status_t
+ */
+mrt_status_t stspn_set_params_in_mm(stspin220_t* dev, double currPosMm, double maxPos, uint32_t stepsPerMm);
+
+/**
  * @brief Set microstepping mode
  * @param dev ptr to stpn device
  * @param mode micro stepping mode
@@ -105,6 +117,16 @@ int stspn_move_mm(stspin220_t* dev,  double mm);
  * @return number of steps moved 
  */
 int stspn_goto_mm(stspin220_t* dev,  double mm);
+
+/**
+ * @brief Move motor to position by mm.  Wake the device, set the step mode, and enable.
+ *        When movment is finished, disable the device and set to standby.
+ * @param dev ptr to stspn device
+ * @param mm number of mm to move +/- for direction
+ * @return number of steps moved
+ */
+int stspn_wake_goto_mm_sleep(stspin220_t* dev,  double mm);
+
 
 
 #ifdef __cplusplus
