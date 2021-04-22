@@ -1,4 +1,5 @@
 ---
-!include device.yml
+name: STSPIN220 
+desc: Low voltage stepper motor driver
 category: Device/MotorDriver
 requires: [Platform]
