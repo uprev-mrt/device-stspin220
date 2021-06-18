@@ -7,6 +7,7 @@
   * @brief Device driver for STSPIN220 device
   *
   */
+#pragma once
 
 #ifdef __cplusplus
 extern "C"
@@ -73,6 +74,17 @@ mrt_status_t stspn_init(stspin220_t* dev, stspn_hw_cfg_t* hw );
  * @return mrt_status_t 
  */
 mrt_status_t stspn_set_params(stspin220_t* dev, uint32_t currPos, uint32_t maxPos, uint32_t stepsPerMm);
+
+/**
+ * @brief set mechanical parameters in mm
+ *
+ * @param dev ptr to device
+ * @param currPos current position in mm
+ * @param maxPos max position in microsteps/steps
+ * @param stepsPerMm Full steps per mm
+ * @return mrt_status_t
+ */
+mrt_status_t stspn_set_params_in_mm(stspin220_t* dev, double currPosMm, double maxPos, uint32_t stepsPerMm);
 
 /**
  * @brief Set microstepping mode

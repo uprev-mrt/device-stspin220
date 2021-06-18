@@ -6,6 +6,8 @@
   *
   */
 
+#include <math.h>
+#include <float.h>
 #include "stspin220.h"
 
 
@@ -41,6 +43,16 @@ mrt_status_t stspn_set_params(stspin220_t* dev, uint32_t currPos, uint32_t maxPo
 
   return MRT_STATUS_OK;
 }
+
+mrt_status_t stspn_set_params_in_mm(stspin220_t* dev, double currPosMm, double maxPos, uint32_t stepsPerMm)
+{
+  dev->mStepsPerMM = stepsPerMm;
+  dev->mMaxPos = maxPos * stepsPerMm * dev->mTicksPerStep;
+  dev->mPos = currPosMm * stepsPerMm * dev->mTicksPerStep;
+
+  return MRT_STATUS_OK;
+}
+
 
 
 mrt_status_t stspn_set_mode(stspin220_t* dev, stspn_step_mode_e mode)
@@ -177,6 +189,13 @@ int stspn_goto_mm(stspin220_t* dev,  double mm)
 int stspn_wake_goto_mm_sleep(stspin220_t* dev,  double mm)
 {
 	int returnValue;
+	double currPosMm = (dev->mPos * dev->mTicksPerStep) / dev->mStepsPerMM; //get current position in mm
+
+	if (fabs(mm - currPosMm) < 0.0001)
+	{
+		return dev->mPos;
+	}
+
 	/* Set mode pins*/
 	/*
 	 * https://www.st.com/resource/en/datasheet/stspin220.pdf
@@ -193,10 +212,11 @@ int stspn_wake_goto_mm_sleep(stspin220_t* dev,  double mm)
 	  // Enable the motor (set the Fault/Enable pin high)
 	  MRT_GPIO_WRITE(dev->mHw.mFault, MRT_HIGH);
 
-	  stspn_goto_mm(dev, mm);
+	  returnValue = stspn_goto_mm(dev, mm);
 
 	  // Disable motor and enter standby mode
 	  MRT_GPIO_WRITE(dev->mHw.mFault, MRT_LOW);
 	  MRT_GPIO_WRITE(dev->mHw.mStandby, MRT_LOW);
 
+	  return returnValue;
 }
