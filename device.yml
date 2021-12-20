@@ -3,8 +3,8 @@ name: STSPIN220
 desc: Low voltage stepper motor driver
 category: Device/MotorDriver
 datasheet: https://www.st.com/resource/en/datasheet/stspin220.pdf
-mfg: STMicroelectronics
-mfg_pn: STSPIN220
+mfr: STMicroelectronics
+mfr_pn: STSPIN220
 digikey_pn: 497-16602-1-ND
 prefix: spn
 bus: GPIO
